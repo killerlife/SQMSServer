@@ -1,0 +1,49 @@
+﻿生成启动时间为 2015-3-24 11:59:50。
+     1>项目“d:\work\SQMSServer\SQMSServer\SQMSServer.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Release\SQMSServer.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       CustomBuild:
+         所有输出均为最新。
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I. /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include /I.\GeneratedFiles\Release /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtCore /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtNetwork /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtSql /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXlsx /IC:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtGui /Zi /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_NETWORK_LIB /D QT_SQL_LIB /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Device.cpp SISThread.cpp Script.cpp
+         Device.cpp
+         SISThread.cpp
+         Script.cpp
+         正在生成代码...
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"d:\work\SQMSServer\Win32\Release\\SQMSServer.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.3.0\5.3\msvc2010_opengl\lib qtmain.lib Qt5Core.lib Qt5Network.lib Qt5Sql.lib Qt0Xlsx.lib Qt5Gui.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\SQMSServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"d:\work\SQMSServer\Win32\Release\SQMSServer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"d:\work\SQMSServer\Win32\Release\SQMSServer.lib" /MACHINE:X86 Release\Config.obj
+         Release\Database.obj
+         Release\Device.obj
+         Release\moc_ModSelect.obj
+         Release\moc_ModSelect.obj
+         Release\moc_Sendmail.obj
+         Release\JobDistribute.obj
+         Release\Log.obj
+         Release\LogFileOperation.obj
+         Release\main.obj
+         Release\ModSelect.obj
+         Release\Report.obj
+         Release\Script.obj
+         Release\Sendmail.obj
+         Release\SISThread.obj
+         Release\soapC.obj
+         Release\soapSystemManagementBinding_USCOREv1_USCORE0Proxy.obj
+         Release\stdsoap2.obj
+         LINK : 没有找到 d:\work\SQMSServer\Win32\Release\\SQMSServer.exe 或上一个增量链接没有生成它；正在执行完全链接
+     1>Release\moc_ModSelect.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+            正在创建库 d:\work\SQMSServer\Win32\Release\SQMSServer.lib 和对象 d:\work\SQMSServer\Win32\Release\SQMSServer.exp
+         SQMSServer.vcxproj -> d:\work\SQMSServer\Win32\Release\SQMSServer.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"d:\work\SQMSServer\Win32\Release\\SQMSServer.exe;#1" /manifest Release\SQMSServer.exe.intermediate.manifest
+       PostBuildEvent:
+         copy /y d:\work\SQMSServer\Win32\Release\SQMSServer.exe d:\work\SQMSServer\Release
+         :VCEnd
+         已复制         1 个文件。
+       FinalizeBuildStatus:
+         正在删除文件“Release\SQMSServer.unsuccessfulbuild”。
+         正在对“Release\SQMSServer.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“d:\work\SQMSServer\SQMSServer\SQMSServer.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:02:42.96

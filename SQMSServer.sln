@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SQMSServer", "SQMSServer\SQMSServer.vcxproj", "{568D39C1-AE97-471F-B09F-6652037A96CF}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{B06A6A93-F037-4458-B2EF-0554F6B24C28}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atmostest", "..\atmostest\atmostest\atmostest.vcxproj", "{37B5C72E-4128-4E45-A155-E324CE2B8C29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{568D39C1-AE97-471F-B09F-6652037A96CF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{568D39C1-AE97-471F-B09F-6652037A96CF}.Debug|Win32.Build.0 = Debug|Win32
+		{568D39C1-AE97-471F-B09F-6652037A96CF}.Release|Win32.ActiveCfg = Release|Win32
+		{568D39C1-AE97-471F-B09F-6652037A96CF}.Release|Win32.Build.0 = Release|Win32
+		{B06A6A93-F037-4458-B2EF-0554F6B24C28}.Debug|Win32.ActiveCfg = Debug
+		{B06A6A93-F037-4458-B2EF-0554F6B24C28}.Release|Win32.ActiveCfg = Release
+		{37B5C72E-4128-4E45-A155-E324CE2B8C29}.Debug|Win32.ActiveCfg = Debug|Win32
+		{37B5C72E-4128-4E45-A155-E324CE2B8C29}.Debug|Win32.Build.0 = Debug|Win32
+		{37B5C72E-4128-4E45-A155-E324CE2B8C29}.Release|Win32.ActiveCfg = Release|Win32
+		{37B5C72E-4128-4E45-A155-E324CE2B8C29}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
