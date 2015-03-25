@@ -42,6 +42,7 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtCore;D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtSql;D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include;D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXlsx;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,6 +84,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="Excel.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_ModSelect.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Sendmail.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -114,6 +116,22 @@
     <ClInclude Include="Database.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceStruct.h" />
+    <CustomBuild Include="Excel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
     <ClInclude Include="JobDistribute.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="LogFileOperation.h" />
