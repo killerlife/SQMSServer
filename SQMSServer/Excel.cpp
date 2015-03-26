@@ -686,7 +686,7 @@ void Excel::setLastChroma()
 				" tb_dev_test_results t"
 				" where cinema_hall = '%1'"
 				" and date(stime) = date('%2')"
-				" GROUP BY date(stime) ORDER BY stime DESC;").arg(itemList.at(i).strTheaterNo).arg(QDate::currentDate().addDays(-j).toString("yyyy-M-d"));
+				" ORDER BY stime DESC limit 1;").arg(itemList.at(i).strTheaterNo).arg(QDate::currentDate().addDays(-j).toString("yyyy-M-d"));
 			QSqlQueryModel *model = pDb->ExecSql(sql);
 			if (model == NULL)
 			{
