@@ -120,9 +120,7 @@ void SISThread::run()
 				if(white_ftl < queue.at(i))
 				{
 					white_ftl = queue.at(i); 
-					pLog->Write(LOG_SISTHREAD, "white_ftl = " + QString::number(white_ftl));
 				}
-				pLog->Write(LOG_SISTHREAD, "num:" + QString::number(i) + " " + QString::number(queue.at(i)));
 			}
 			pLog = CreateLog();
 			pLog->Write(LOG_SISTHREAD, mQDev.strIp + ":" + "Get it!!");

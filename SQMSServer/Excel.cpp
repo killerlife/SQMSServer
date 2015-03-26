@@ -103,7 +103,7 @@ void Excel::setTodayChroma()
 	// Test result of Chroma
 	// É«Óò
 	format.setPatternBackgroundColor("#4BACC6");
-	format.setFontBold(true);
+	format.setFontBold(false);
 	format.setFontName("Book Antiqua");
 	format.setFontSize(12);
 	format.setFontColor(QColor("#ffffff"));
@@ -117,17 +117,17 @@ void Excel::setTodayChroma()
 	format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
 	format.setPatternBackgroundColor(QColor("#B7DDE8"));
 	xlsx.write(22, 1, "", format);
-	xlsx.write(22, 2, "WHITE", format);
+	xlsx.write(22, 2, "WHITE(0.314, 0.351)", format);
 	xlsx.mergeCells("B22:C22", format);
 
-	xlsx.write(22, 4, "RED", format);
+	xlsx.write(22, 4, "RED(0.680, 0.320)", format);
 	xlsx.mergeCells("D22:E22", format);
 
 
-	xlsx.write(22, 6, "GREE", format );
+	xlsx.write(22, 6, "GREE(0.265, 0.690)", format );
 	xlsx.mergeCells("F22:G22", format);
 
-	xlsx.write(22, 8, "BLUE", format);
+	xlsx.write(22, 8, "BLUE(0.150, 0.060)", format);
 	xlsx.mergeCells("H22:I22", format);
 
 	xlsx.write(22, 10, "", format);
@@ -197,7 +197,7 @@ void Excel::setTodayChroma()
 			"   FROM\n"
 			"	std_test\n"
 			"   WHERE\n"
-			"	cinema_hall = '%1';").arg(itemList.at(i).strTheaterName);
+			"	cinema_hall = '%1';").arg(itemList.at(i).strTheaterNo);
 		QSqlQueryModel *stdModel = pDb->ExecSql(sql); 
 		if(stdModel == NULL)
 		{
@@ -317,7 +317,7 @@ void Excel::setTodaySPL()
 	format.setFontColor(QColor("#ffffff"));
 	format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
 
-	xlsx.write(11, 1, "Test result of SPL(dBC)", format);
+	xlsx.write(11, 1, "Test result of SPL(dBC) - DCI requierment is 85dBC", format);
 	xlsx.mergeCells("A11:J11", format);
 	//header
 	format.setFontColor(QColor("#000000"));
@@ -466,7 +466,7 @@ void Excel::setTodayLuminance()
 	// Test result of Luminance
 	// ÁÁ¶È
 	format.setPatternBackgroundColor("#4BACC6");
-	format.setFontBold(true);
+	format.setFontBold(false);
 	format.setFontName("Book Antiqua");
 	format.setFontSize(12);
 	format.setFontColor(QColor("#ffffff"));
@@ -480,16 +480,16 @@ void Excel::setTodayLuminance()
 	format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
 	format.setPatternBackgroundColor(QColor("#B7DDE8"));
 	xlsx.write(33, 1, "Hall name", format);
-	xlsx.write(33, 2, "WHITE(ftL)", format);
+	xlsx.write(33, 2, "WHITE(14ftL)", format);
 	xlsx.mergeCells("B33:C33", format);
 
-	xlsx.write(33, 4, "RED(ftL)", format);
+	xlsx.write(33, 4, "RED(2.95ftL)", format);
 	xlsx.mergeCells("D33:E33", format);
 
-	xlsx.write(33, 6, "GREEN(ftL)", format);
+	xlsx.write(33, 6, "GREEN(10.11ftL)", format);
 	xlsx.mergeCells("F33:G33", format);
 
-	xlsx.write(33, 8, "BLUE(ftL)", format);
+	xlsx.write(33, 8, "BLUE(0.97ftL)", format);
 	xlsx.mergeCells("H33:I33", format);
 
 	xlsx.write(33, 10, "Test time", format);
@@ -646,15 +646,15 @@ void Excel::setLastChroma()
 		format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
 		format.setPatternBackgroundColor(QColor("#CCC1D9"));
 		xlsx.write(119+i*11, 1, "", format);
-		xlsx.write(119+i*11, 2, "WHITE", format);
+		xlsx.write(119+i*11, 2, "WHITE(0.314, 0.351)", format);
 		xlsx.mergeCells(QXlsx::CellRange(119+i*11, 2, 119+i*11, 3), format);
-		xlsx.write(119+i*11, 4, "RED", format);
+		xlsx.write(119+i*11, 4, "RED(0.680, 0.320)", format);
 		xlsx.mergeCells(QXlsx::CellRange(119+i*11, 4, 119+i*11, 5), format);
 
-		xlsx.write(119+i*11, 6, "GREE", format );
+		xlsx.write(119+i*11, 6, "GREE(0.265, 0.690)", format );
 		xlsx.mergeCells(QXlsx::CellRange(119+i*11, 6, 119+i*11, 7), format);
 
-		xlsx.write(119+i*11, 8, "BLUE", format);
+		xlsx.write(119+i*11, 8, "BLUE(0.150, 0.060)", format);
 		xlsx.mergeCells(QXlsx::CellRange(119+i*11, 8, 119+i*11, 9), format);
 
 		xlsx.write(119+i*11, 10, "", format);
@@ -707,7 +707,7 @@ void Excel::setLastChroma()
 				"   FROM\n"
 				"	std_test\n"
 				"   WHERE\n"
-				"	cinema_hall = '%1';").arg(itemList.at(i).strTheaterName);
+				"	cinema_hall = '%1';").arg(itemList.at(i).strTheaterNo);
 			QSqlQueryModel *stdModel = pDb->ExecSql(sql); 
 			if(stdModel == NULL)
 			{
@@ -846,16 +846,16 @@ void Excel::setLastLuminance()
 		format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
 		format.setPatternBackgroundColor(QColor("#FBD5B5"));
 		xlsx.write(196+i*10, 1, "Hall name", format);
-		xlsx.write(196+i*10, 2, "WHITE(ftL)", format);
+		xlsx.write(196+i*10, 2, "WHITE(14ftL)", format);
 		xlsx.mergeCells(QXlsx::CellRange(196+i*10, 2, 196+i*10, 3), format);
 
-		xlsx.write(196+i*10, 4, "RED(ftL)", format);
+		xlsx.write(196+i*10, 4, "RED(2.95ftL)", format);
 		xlsx.mergeCells(QXlsx::CellRange(196+i*10, 4, 196+i*10, 5), format);
 
-		xlsx.write(196+i*10, 6, "GREEN(ftL)", format);
+		xlsx.write(196+i*10, 6, "GREEN(10.11ftL)", format);
 		xlsx.mergeCells(QXlsx::CellRange(196+i*10, 6, 196+i*10, 7), format);
 
-		xlsx.write(196+i*10, 8, "BLUE(ftL)", format);
+		xlsx.write(196+i*10, 8, "BLUE(0.97ftL)", format);
 		xlsx.mergeCells(QXlsx::CellRange(196+i*10, 8, 196+i*10, 9), format);
 
 		xlsx.write(196+i*10, 10, "Test date", format);
@@ -1008,7 +1008,7 @@ void Excel::setLastSPL()
 		format.setFontSize(12);
 		format.setFontBold(false);
 		format.setHorizontalAlignment(QXlsx::Format::AlignHCenter);
-		xlsx.write(47+i*10, 1, "Test result of SPL (dBC)", format);
+		xlsx.write(47+i*10, 1, "Test result of SPL (dBC) - DCI requierment is 85dBC", format);
 		xlsx.mergeCells(QXlsx::CellRange(47+i*10, 1, 47+i*10, 10), format);
 		format.setFontColor(QColor("#000"));
 		format.setPatternBackgroundColor(QColor("#D7E3BC"));
