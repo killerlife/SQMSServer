@@ -90,7 +90,7 @@ int SQMSScript::LoadScript(char* fn)
 	}
 	QTextStream in(&f);
 	QString buf = in.readAll();
-	return 1;
+	return LoadScript(buf);
 }
 
 int SQMSScript::LoadScript(QString script)

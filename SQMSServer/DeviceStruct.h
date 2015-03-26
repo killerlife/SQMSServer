@@ -2,6 +2,9 @@
 #define DEVICESTRUCT_H
 
 typedef enum {
+	//----------------------------------------------------------------------
+	//                       LLAS-100 function
+	//               Use IDevice->Read to access device
 	DATA_FTL = 0, //IDevice->Read, return "ftl"
 	DATA_CMD2, //IDevice->Read, return "ccd"
 	DATA_XY, //IDevice->Read, return "x\ty"
@@ -13,12 +16,21 @@ typedef enum {
 	DATA_HALL, //IDevice->Read, return hall name
 	CTRL_STANDBY, //IDevice->Read, don't care return
 	CTRL_POWERON, //IDevice->Read, don't care return
+	//End of LLAS-100 function
+	//----------------------------------------------------------------------
+
+	//----------------------------------------------------------------------
+	//                        CP850 function
+	//              Use IDevice->Read to access device
 	CP850_GETCONFIG, //IDevice->Read, return XML content 
+	CP850_GETMUTE, //IDevice->Read, return "ON" or "OFF"
+	//Use IDevice->Write to access device
 	CP850_PINKNOISE, //IDevice->Write, strParam = "ON" or "OFF"
 	CP850_SETCHANNEL, //IDevice->Write, strParam = "0" ... "64"
 	CP850_CLEARCHANNEL, //IDevice->Write, don't care strParam
-	CP850_GETMUTE, //IDevice->Read, return "ON" or "OFF"
 	CP850_SETMUTE, //IDevice->Write, strParm = "ON" or "OFF"
+	//End of CP850 device
+	//----------------------------------------------------------------------
 	DATA_END
 } DATACLASS;
 
