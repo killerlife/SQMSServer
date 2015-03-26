@@ -10,6 +10,8 @@ public:
 	QString Read(DATACLASS dataClass);
 	int Write(DATACLASS dataClass, const QString& strParam){ return 1;};
 	int SetIp(QString strIp, int nPort = 10001);
+	DEVICETYPE IdType(){return DEVICE_LLAS100;};
+
 	SQMSDevice();
 	~SQMSDevice();
 
@@ -31,6 +33,8 @@ public:
 	QString Read(DATACLASS dataClass);
 	int Write(DATACLASS dataClass, const QString& strParam);
 	int SetIp(QString strIp, int nPort);
+	DEVICETYPE IdType(){return DEVICE_CP850;};
+
 	Dolby850();
 	~Dolby850();
 
@@ -294,4 +298,34 @@ int Dolby850::Write(DATACLASS dataClass, const QString& strParam)
 	}
 
 	return 1;
+}
+
+#include <QDomDocument>
+#include <QDomElement>
+QStringList Dolby850ParseConfig(const QString& config)
+{
+	QDomDocument doc;
+	QString errStr;
+	int errLine;
+	int errColumn;
+	QStringList speakerList;
+
+	ILog* pLog = CreateLog();
+	if (!doc.setContent(config, true, &errStr, &errLine, &errColumn))
+	{
+		pLog->Write(LOG_DEVICE, "CP850: ParseConfig error - " + errStr + " Line - " + QString::number(errLine) + " Col - " + QString::number(errColumn));
+	}
+	else
+	{
+		QDomElement root = doc.documentElement();
+		QDomNodeList list = root.elementsByTagName("speakerEndpoint");
+		for (int i = 0; i < list.count(); i++)
+		{
+			QDomElement elment = list.at(i).toElement();
+			QString id = elment.attribute("id").remove("SPKREP-");
+			QString name = elment.firstChildElement("name").text();
+			speakerList<<name;
+		}
+	}
+	return speakerList;
 }

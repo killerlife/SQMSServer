@@ -90,7 +90,7 @@ int SQMSScript::LoadScript(char* fn)
 	}
 	QTextStream in(&f);
 	QString buf = in.readAll();
-	return 1;
+	return LoadScript(buf);
 }
 
 int SQMSScript::LoadScript(QString script)
@@ -131,12 +131,19 @@ int SQMSScript::ExecScript()
 	for (int i = 0; i < listScript.size(); i++)
 	{
 		LISTITEM item = listScript.at(i);
+
+		//---------------------------------------------------------------------------------
+		//Sleep script processor
 		//item.name = item.name.toLower();
 		if (item.name.contains("sleep"))
 		{
 			delay.msleep(item.value.toInt());
 		}
-#if 1
+		//End of sleep script processor
+		//---------------------------------------------------------------------------------
+
+		//---------------------------------------------------------------------------------
+		//LLAS-100 Sensor script processor
 		if (item.name.contains("sensor"))
 		{
 			if(item.name.contains("ftl"))
@@ -311,10 +318,33 @@ int SQMSScript::ExecScript()
 				default:
 					break;
 				}
-
 			}
-#endif
 		}
+		//End of LLAS-100 script processor
+		//---------------------------------------------------------------------------------
+
+		//---------------------------------------------------------------------------------
+		//CP850 script processor
+		if(item.name.contains("audio") && pAudioProcessor != NULL)
+		{
+			if (pAudioProcessor->IdType() == DEVICE_CP850)
+			{
+				if (item.name.contains("cp850.speaker"))
+				{
+					LISTITEM valueItem;
+					pAudioProcessor->Write(CP850_SETCHANNEL, item.value);
+					pAudioProcessor->Write(CP850_PINKNOISE, "ON");
+					delay.msleep(5000);
+					valueItem.value = pSensorBack->Read(DATA_SPL);
+					pAudioProcessor->Write(CP850_PINKNOISE, "OFF");
+					pAudioProcessor->Write(CP850_CLEARCHANNEL, "");
+					valueItem.name = "speaker-" + item.value;
+					listValue.append(valueItem);
+				}
+			}
+		}
+		//End of CP850 script processor
+		//---------------------------------------------------------------------------------	
 	}
 	return 1;
 }

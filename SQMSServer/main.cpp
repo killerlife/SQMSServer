@@ -6,9 +6,19 @@
 #include "JobDistribute.h"
 #include "Log.h"
 
+//#include "QFile"
+
+// extern QStringList Dolby850ParseConfig(const QString& config);
+// QString s;
+
 int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
+// 	QFile file("r:\\atmos_config_jingyi.xml");
+// 
+// 	file.open(QFile::ReadOnly|QFile::Text);
+// 	s = file.readAll();
+// 	QStringList list = Dolby850ParseConfig(s);
 
 // 	IConfig* pConfig = CreateConfig();
 // 	DATABASESETTING mDS = pConfig->GetDatabaseSetting();
