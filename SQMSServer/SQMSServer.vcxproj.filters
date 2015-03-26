@@ -94,6 +94,9 @@
     <ClCompile Include="soapSystemManagementBinding_USCOREv1_USCORE0Proxy.cpp">
       <Filter>Source Files\CP850</Filter>
     </ClCompile>
+    <ClCompile Include="Excel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ModSelect.h">
@@ -103,6 +106,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Report.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Excel.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
