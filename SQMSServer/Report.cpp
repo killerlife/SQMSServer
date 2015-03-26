@@ -162,7 +162,9 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 	QStringList files;
 	files.append(file);
 	QString s = "LEONIS-S-QMS-TestRep-" + itemList.at(0).strTheaterName + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd");
-	QString body = QString::fromLocal8Bit("<p>这封邮件由LEONIS S-QMS100自动发送，请勿回复。<br>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</p>");
+	QString body = QString::fromLocal8Bit("<p>这封邮件由LEONIS S-QMS100自动发送，请勿回复。<br>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</p>"
+		"<p>关于测试数据的说明:<br>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。<br>"
+		"2. 根据DCI的要求，放映机安装时需要校准色彩空间，保证所有影厅放映机输出的色彩空间一致，如果色彩空间设置正确，所有影厅检测到的色域坐标就是DCI所要求的标准值。呈现的结果就是所有影厅的色域坐标一致。</p>");
 	ISendmail* pMail = NULL;
 
 	pMail = CreateSendmail();
