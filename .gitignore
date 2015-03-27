@@ -1,0 +1,9 @@
+ipch/*
+Win32/*
+*.obj
+*.log
+SQMSServer/Debug/*
+SQMSServer/Release/*
+SQMSServer/GeneratedFiles/*
+SQMSServer/log/*
+
