@@ -1,5 +1,8 @@
 #include "Excel.h"
-
+#include <QDebug>
+#define STD_VALUE_CHROMA 0.03
+#define STD_VALUE_SPL 5
+#define STD_VALUE_LUMINANCE 3
 
 Excel::Excel(QObject *parent)
 {
@@ -133,6 +136,7 @@ void Excel::setTodayChroma()
 	xlsx.write(22, 10, "", format);
 	xlsx.write(23, 1, "Hall name", format);
 	xlsx.write(23, 2, "x", format);
+
 	xlsx.write(23, 3, "y", format);
 	xlsx.write(23, 4, "x", format);
 	xlsx.write(23, 5, "y", format);
@@ -184,6 +188,7 @@ void Excel::setTodayChroma()
 			pLog->Write(LOG_DATABASE, sql);
 			return;
 		}
+		
 
 		sql = QObject::tr("SELECT\n"
 			"	wx,\n"
@@ -220,60 +225,60 @@ void Excel::setTodayChroma()
 		{
 			for(int j = 0; j<model->rowCount(); j++ )
 			{
-				double wx = model->data(model->index(j, 0)).toDouble(); 
-				double wy = model->data(model->index(j, 1)).toDouble(); 
-				double rx = model->data(model->index(j, 2)).toDouble(); 
-				double ry = model->data(model->index(j, 3)).toDouble(); 
-				double gx = model->data(model->index(j, 4)).toDouble(); 
-				double gy = model->data(model->index(j, 5)).toDouble(); 
-				double bx = model->data(model->index(j, 6)).toDouble(); 
-				double by = model->data(model->index(j, 7)).toDouble(); 
+				double wx = model->data(model->index(j, 1)).toDouble(); 
+				double wy = model->data(model->index(j, 2)).toDouble(); 
+				double rx = model->data(model->index(j, 3)).toDouble(); 
+				double ry = model->data(model->index(j, 4)).toDouble(); 
+				double gx = model->data(model->index(j, 5)).toDouble(); 
+				double gy = model->data(model->index(j, 6)).toDouble(); 
+				double bx = model->data(model->index(j, 7)).toDouble(); 
+				double by = model->data(model->index(j, 8)).toDouble(); 
 
 				xlsx.write(i+24, 1, model->data(model->index(j, 0)).toString(), format); //CINEMA HALL
 
-				if(fabs(std_wx - wx) > 0.03 )											// wx
+				if(fabs(std_wx - wx) > STD_VALUE_CHROMA )											// wx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 2, model->data(model->index(j, 1)).toString(), format); 
 
-				if(fabs(std_wy - wy) > 0.03 )											 // wy
+				if(fabs(std_wy - wy) > STD_VALUE_CHROMA )											 // wy
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}			
 				xlsx.write(i+24, 3, model->data(model->index(j, 2)).toString(), format); 
 
-				if(fabs(std_rx - rx) > 0.03 )											// rx
+				if(fabs(std_rx - rx) > STD_VALUE_CHROMA )											// rx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 4, model->data(model->index(j, 3)).toString(), format);  
 
-				if(fabs(std_ry - ry) > 0.03 )										   // ry
+				if(fabs(std_ry - ry) > STD_VALUE_CHROMA )										   // ry
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 5, model->data(model->index(j, 4)).toString(), format);  
 
-				if(fabs(std_gx - gx) > 0.03 )											// gx
+				if(fabs(std_gx - gx) > STD_VALUE_CHROMA )											// gx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 6, model->data(model->index(j, 5)).toString(), format); 
 
-				if(fabs(std_gy - gy) > 0.03 )											// gy									
+				if(fabs(std_gy - gy) > STD_VALUE_CHROMA )											// gy									
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 7, model->data(model->index(j, 6)).toString(), format); 
 
-				if(fabs(std_bx - bx) > 0.03 )											//bx
+				if(fabs(std_bx - bx) > STD_VALUE_CHROMA )											//bx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(i+24, 8, model->data(model->index(j, 7)).toString(), format);  
 
-				if(fabs(std_by - by) > 0.03 )											// by
+				if(fabs(std_by - by) > STD_VALUE_CHROMA )											// by
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
@@ -402,32 +407,32 @@ void Excel::setTodaySPL()
 
 				xlsx.write(i+13, 1, cinema_hall , format); //CINEMA HALL
 
-				if(fabs(std_left - left) > 5 )
+				if(fabs(std_left - left) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
 				xlsx.write(i+13, 2, model->data(model->index(j, 1)).toString() , format); // Left
-				if(fabs(std_right - right) > 5 )
+				if(fabs(std_right - right) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
 				xlsx.write(i+13, 3, model->data(model->index(j, 2)).toString(), format); // Right
-				if(fabs(std_center - center) > 5 )
+				if(fabs(std_center - center) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
 				xlsx.write(i+13, 4, model->data(model->index(j, 3)).toString(), format); // Center
-				if(fabs(std_lfe - lfe) > 5 )
+				if(fabs(std_lfe - lfe) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
 				xlsx.write(i+13, 5, model->data(model->index(j, 4)).toString(), format); // LFE
-				if(fabs(std_ls - ls) > 5 )
+				if(fabs(std_ls - ls) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
 				xlsx.write(i+13, 6, model->data(model->index(j, 5)).toString(), format); // LS
-				if(fabs(std_ls - ls) > 5 )
+				if(fabs(std_rs - rs) > STD_VALUE_SPL )
 				{format.setFontColor(QColor("#ff0000")); }
 				else
 				{format.setFontColor(QColor("#000000")); }
@@ -742,57 +747,57 @@ void Excel::setLastChroma()
 			if(model->rowCount() > 0 )
 			{
 				xlsx.write(j+121+i*11, 1, model->data(model->index(0, 0)).toString(), format); //CINEMA HALL
-				double wx = model->data(model->index(0, 0)).toDouble(); 
-				double wy = model->data(model->index(0, 1)).toDouble(); 
-				double rx = model->data(model->index(0, 2)).toDouble(); 
-				double ry = model->data(model->index(0, 3)).toDouble(); 
-				double gx = model->data(model->index(0, 4)).toDouble(); 
-				double gy = model->data(model->index(0, 5)).toDouble(); 
-				double bx = model->data(model->index(0, 6)).toDouble(); 
-				double by = model->data(model->index(0, 7)).toDouble(); 
-				if(fabs(std_wx - wx) > 0.03 )											// wx
+				double wx = model->data(model->index(0, 1)).toDouble(); 
+				double wy = model->data(model->index(0, 2)).toDouble(); 
+				double rx = model->data(model->index(0, 3)).toDouble(); 
+				double ry = model->data(model->index(0, 4)).toDouble(); 
+				double gx = model->data(model->index(0, 5)).toDouble(); 
+				double gy = model->data(model->index(0, 6)).toDouble(); 
+				double bx = model->data(model->index(0, 7)).toDouble(); 
+				double by = model->data(model->index(0, 8)).toDouble(); 
+				if(fabs(std_wx - wx) > STD_VALUE_CHROMA )											// wx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 2, model->data(model->index(0, 1)).toString(), format);  
 
-				if(fabs(std_wy - wy) > 0.03 )											 // wy
+				if(fabs(std_wy - wy) > STD_VALUE_CHROMA )											 // wy
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}	
 				xlsx.write(j+121+i*11, 3, model->data(model->index(0, 2)).toString(), format); 
 
-				if(fabs(std_rx - rx) > 0.03 )											// rx
+				if(fabs(std_rx - rx) > STD_VALUE_CHROMA )											// rx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 4, model->data(model->index(0, 3)).toString(), format);  
 
-				if(fabs(std_ry - ry) > 0.03 )										   // ry
+				if(fabs(std_ry - ry) > STD_VALUE_CHROMA )										   // ry
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 5, model->data(model->index(0, 4)).toString(), format);  
 
-				if(fabs(std_gx - gx) > 0.03 )											// gx
+				if(fabs(std_gx - gx) > STD_VALUE_CHROMA )											// gx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 6, model->data(model->index(0, 5)).toString(), format);  
 
-				if(fabs(std_gy - gy) > 0.03 )											// gy									
+				if(fabs(std_gy - gy) > STD_VALUE_CHROMA )											// gy									
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 7, model->data(model->index(0, 6)).toString(), format);  
 
-				if(fabs(std_bx - bx) > 0.03 )											//bx
+				if(fabs(std_bx - bx) > STD_VALUE_CHROMA )											//bx
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}
 				xlsx.write(j+121+i*11, 8, model->data(model->index(0, 7)).toString(), format); 
 
-				if(fabs(std_by - by) > 0.03 )											// by
+				if(fabs(std_by - by) > STD_VALUE_CHROMA )											// by
 				{format.setFontColor(QColor("#ff0000"));}
 				else
 				{format.setFontColor(QColor("#000000"));}

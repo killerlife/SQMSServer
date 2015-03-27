@@ -58,6 +58,7 @@ private:
 	Format format;
 	Format warning_format;
 	IDatabase* pDb;
+	/*IDatabase* pDb2;*/
 	QSqlQueryModel *model;
 	ILog* pLog;
 	TQDevItemList itemList;
