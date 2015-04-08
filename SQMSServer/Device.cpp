@@ -151,7 +151,7 @@ QString SQMSDevice::Read(DATACLASS dataClass)
 		}
 		catch(QString m)
 		{
-			pLog->Write(LOG_DEVICE, m);
+			pLog->Write(LOG_DEVICE, mIp + ": " + m);
 			mSocket.abort();
 			isConnected = false;
 		}
@@ -163,10 +163,10 @@ QString SQMSDevice::ReadDevice(char* s)
 {
 	char buf[50];
 	mSocket.write(s, strlen(s));
-	if(!mSocket.waitForBytesWritten(-1))
+	if(!mSocket.waitForBytesWritten(5000))
 		throw mSocket.errorString();
 	memset(buf, 0, 50);
-	if (!mSocket.waitForReadyRead(-1))
+	if (!mSocket.waitForReadyRead(5000))
 		throw mSocket.errorString();
 	mSocket.read(buf, 50);
 	return QString(buf);
