@@ -211,12 +211,12 @@ bool isTime(QTime tBefore, QTime tAfter, T_KIND nKind)
 		else
 			return false;
 	case T_AFTER_10MIN:
-		if(t > nAfter && t < (nAfter + 600))
+		if(t > (nAfter - 600) && t < (nAfter + 600))
 			return true;
 		else
 			return false;
 	case T_BEFORE_10MIN:
-		if(t > (nBefore - 600))
+		if(t > (nBefore - 600) && t < (nAfter + 600))
 			return true;
 		else
 			return false;
