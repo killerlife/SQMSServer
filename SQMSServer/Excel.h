@@ -21,6 +21,7 @@ class Excel
 public:
 	Excel(QObject *parent = 0);
 	~Excel();
+	void setLang(int lang);
 	void setHeader();
 	void setTitle(QString &title); 
 	void setSubTitle(QString &subTitle); 
@@ -33,9 +34,11 @@ public:
 	void setTodaySPL();
 	void setTodayChroma();
 	void setTodayLuminance();
+	void setTodayLuminanceCDM();
 	void setLastSPL();
 	void setLastChroma();
 	void setLastLuminance();
+	void setLastLuminanceCDM();
 	void setErrorFormat(Format &format); 
 	void setWarningFormat(Format &format); 
 	void setSuccessFormat(Format &format); 
@@ -63,7 +66,7 @@ private:
 	ILog* pLog;
 	TQDevItemList itemList;
 	Document xlsx;
-	
+	int mLang;	
 };
 
 #endif // EXCEL_H

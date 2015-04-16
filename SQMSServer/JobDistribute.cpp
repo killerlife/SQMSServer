@@ -121,6 +121,15 @@ void SQMSJobDistribute::CreateTask()
 		pRep->SetSmtpSetting(mSS);
 		pRep->Start();
 	}
+	else if(pRep->IsRelease())
+	{
+		if (!isTime(mSS.mStartTime, mSS.mStartTime, T_BEFORE_10MIN))
+		{
+			pRep = CreateReport();
+			pRep->SetSmtpSetting(mSS);
+			pRep->Start();
+		}
+	}
 	if(taskCreate == false)
 	{
 		for (int i = 0; i < mQDevList.size(); i++)

@@ -14,6 +14,7 @@ public:
 	virtual void Stop() = 0;
 	virtual void Exit() = 0;
 	virtual bool IsRun() = 0;
+	virtual bool IsRelease() = 0;
 };
 
 IReport * CreateReport();
