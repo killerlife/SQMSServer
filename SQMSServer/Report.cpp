@@ -35,6 +35,7 @@ private:
 	bool isRun, isRelease;
 	int nState;
 	QString subject;
+	QStringList failList, successList;
 };
 
 IReport* CreateReport()
@@ -179,7 +180,67 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 	//QString body = QString::fromLocal8Bit("<p>这封邮件由LEONIS S-QMS100自动发送，请勿回复。<br>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</p>"
 	//	"<p>关于测试数据的说明:<br>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。<br>"
 	//	"2. 根据DCI的要求，放映机安装时需要校准色彩空间，保证所有影厅放映机输出的色彩空间一致，如果色彩空间设置正确，所有影厅检测到的色域坐标就是DCI所要求的标准值。呈现的结果就是所有影厅的色域坐标一致。</p>");
-	QString body = QString::fromLocal8Bit("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
+	QString body;
+//	if (failList.size()>0)
+	{
+		body = QString::fromLocal8Bit("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
+			"<HTML><HEAD><META http-equiv=Content-Type content=\"text/html; charset=gb2312\">"
+			"<META content=\"MSHTML 6.00.2900.6550\" name=GENERATOR><STYLE>"
+			"BLOCKQUOTE { MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; MARGIN-LEFT: 2em	}"
+			"OL { MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px }"
+			"UL { MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px }"
+			"DIV.FoxDiv20150326131445984163 { COLOR: #000000 }"
+			"P { MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px }"
+			"DIV.FoxDiv20150327091325890006 { FONT-SIZE: 10.5pt; MARGIN: 10px; COLOR: #000080; LINE-HEIGHT: 1.5; FONT-FAMILY: 宋体 }"
+			"BODY { FONT-SIZE: 10.5pt; COLOR: #000080; LINE-HEIGHT: 1.5; FONT-FAMILY: 宋体 }"
+			"</STYLE></HEAD><BODY style=\"MARGIN: 10px\"><DIV class=FoxDiv20150327091325890006>"
+			"<DIV>这封邮件由LEONIS S-QMS100自动发送，请勿回复。"
+			"<DIV>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</DIV>"
+			"<DIV>&nbsp;</DIV>"
+			"<DIV>&nbsp;</DIV>"
+			"<DIV>截止到");
+		body += QDateTime::currentDateTime().toString("yyyy") + QString::fromLocal8Bit("年") + 
+			QDateTime::currentDateTime().toString("MM") + QString::fromLocal8Bit("月") + 
+			QDateTime::currentDateTime().toString("dd") + QString::fromLocal8Bit("号") +
+			QDateTime::currentDateTime().toString("HH:mm:ss") + QString::fromLocal8Bit("(设置的邮件发送时间)：</DIV><DIV>&nbsp;</DIV>");
+		if(successList.size()>0)
+		{
+			body += QString::fromLocal8Bit("<DIV>采集到检测数据的影厅序号为：");
+			int i;
+			for(i = 0; i<successList.size()-1; i++)
+			{
+				body = body + successList.at(i) + QString::fromLocal8Bit("，");
+			}
+			body = body + successList.at(i) + QString::fromLocal8Bit("。</DIV>");
+		}
+		if (failList.size()>0)
+		{
+			body += QString::fromLocal8Bit("<DIV>未采集到检测数据的影厅序号为：<font color=\"#ff0000\">");
+			int i;
+			for (i = 0; i <failList.size() - 1; i++)
+			{
+				body = body + failList.at(i) + QString::fromLocal8Bit("，");
+			}
+			body = body + failList.at(i) + QString::fromLocal8Bit("。</font></DIV>");
+			body += QString::fromLocal8Bit("<DIV>&nbsp;</DIV>");
+			body += QString::fromLocal8Bit("<DIV style=\"COLOR: #ff0000\">"
+				"建议检查未采集到检测数据的影厅是否按照操作要求正确放映检测片，同时检查以上各厅安装的LLAS-100检测仪电源是否工作正常、网络连接是否正常。");
+		}
+
+		body += QString::fromLocal8Bit("</DIV><DIV>&nbsp;</DIV><DIV>&nbsp;</DIV>"
+			"<DIV>关于测试数据的说明: <DIV>&nbsp;</DIV>"
+			"<DIV>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。</DIV>"
+			"<DIV style=\"COLOR: #ff0000\">建议测试时确保通道正确且3D设备移开。</DIV>"
+			"<DIV>&nbsp;</DIV>"
+			"<DIV>2. 根据DCI的要求，放映机安装时需要校准色彩空间，保证所有影厅放映机输出的色彩空间一致，如果色彩空间设置正确，所有影厅检测到的色域坐标就是DCI所要求的标准值。</DIV>"
+			"<DIV style=\"COLOR: #ff0000\">呈现的结果就是所有影厅的色域坐标一致。</DIV></DIV>"
+			"<DIV>&nbsp;</DIV>"
+			"</DIV></BODY></HTML>");
+	}
+#if 0
+	else
+	{
+		body = QString::fromLocal8Bit("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
 		"<HTML><HEAD><META http-equiv=Content-Type content=\"text/html; charset=gb2312\">"
 		"<META content=\"MSHTML 6.00.2900.6550\" name=GENERATOR><STYLE>"
 		"BLOCKQUOTE { MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; MARGIN-LEFT: 2em	}"
@@ -202,6 +263,8 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 		"<DIV style=\"COLOR: #ff0000\">呈现的结果就是所有影厅的色域坐标一致。</DIV></DIV>"
 		"<DIV>&nbsp;</DIV>"
 		"</DIV></BODY></HTML>");
+	}
+#endif
 	ISendmail* pMail = NULL;
 
 	pMail = CreateSendmail();
@@ -253,5 +316,7 @@ void SQMSReport::doExcel(const TQDevItemList& itemList, int lang)
 	excel.setLastLuminance();
 	excel.setLastLuminanceCDM();
 	excel.SaveAs(fileName);
+	failList = excel.getFailList();
+	successList = excel.getSuccessList();
 }
 

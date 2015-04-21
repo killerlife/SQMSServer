@@ -43,13 +43,15 @@ public:
 	void setWarningFormat(Format &format); 
 	void setSuccessFormat(Format &format); 
 	void setDefaultFormat(Format &format);
-	void setThemeBlue(Format &format);   // 色蓝色调
-	void setThemeOrange(Format &format); // 橙色调
-	void setThemePurple(Format &format); // 紫色调
+	void setThemeBlue(Format &format);   // 色色
+	void setThemeOrange(Format &format); // 色
+	void setThemePurple(Format &format); // 色
 	void setDb(IDatabase* pDb);
 	void setModel(QSqlQueryModel *model); 
 	void setLog(ILog* pLog);
 	void SaveAs(QString &fileName);
+	QStringList getFailList();
+	QStringList getSuccessList();
 private:
 	QString fileName;
 	QString title;
@@ -57,6 +59,7 @@ private:
 	QString theaterName;
 	QString body;
 	QString copy; 
+	QStringList faileList, successList;
 	QDate mDate;
 	Format format;
 	Format warning_format;
@@ -67,6 +70,7 @@ private:
 	TQDevItemList itemList;
 	Document xlsx;
 	int mLang;	
+	int nPosStart;
 };
 
 #endif // EXCEL_H

@@ -125,6 +125,7 @@ void SQMSJobDistribute::CreateTask()
 	{
 		if (!isTime(mSS.mStartTime, mSS.mStartTime, T_BEFORE_10MIN))
 		{
+			ReleaseReport(pRep);
 			pRep = CreateReport();
 			pRep->SetSmtpSetting(mSS);
 			pRep->Start();
@@ -159,6 +160,7 @@ void SQMSJobDistribute::Mainloop()
 	QTime currTime = QTime::currentTime();
 	LISTSIS::iterator itor;
 
+#if 0
 	if (!pRep->IsRun())
 	{
 		//ReleaseReport(pRep);
@@ -166,6 +168,7 @@ void SQMSJobDistribute::Mainloop()
 		pRep->SetSmtpSetting(mSS);
 		pRep->Start();
 	}
+#endif // 0
 
 	for(int i = 0; i <mSISList.size(); i++)
 	{
