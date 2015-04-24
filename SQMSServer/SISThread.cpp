@@ -148,7 +148,7 @@ void SISThread::run()
 
 bool SISThread::isTime(QTime mTime, T_KIND nKind)
 {
-	int tBefore, tAfter, t;
+	volatile int tBefore, tAfter, t;
 	tBefore = mQDev.tBefore.hour()*3600 + mQDev.tBefore.minute()*60 + mQDev.tBefore.second();
 	tAfter = mQDev.tAfter.hour()*3600 + mQDev.tAfter.minute()*60 + mQDev.tAfter.second();
 	t = mTime.hour()*3600 + mTime.minute()*60 + mTime.second();
@@ -187,7 +187,7 @@ bool SISThread::isTime(QTime mTime, T_KIND nKind)
 
 bool isTime(QTime tBefore, QTime tAfter, T_KIND nKind)
 {
-	int nBefore, nAfter, t;
+	volatile int nBefore, nAfter, t;
 	QTime mTime = QTime::currentTime();
 	nBefore = tBefore.hour()*3600 + tBefore.minute()*60 + tBefore.second();
 	nAfter = tAfter.hour()*3600 + tAfter.minute()*60 + tAfter.second();

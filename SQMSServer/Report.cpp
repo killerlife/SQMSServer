@@ -13,7 +13,7 @@ public:
 	void SetSmtpSetting(SMTPSETTING ds);
 	void Start();
 	void Stop();
-	void Exit();
+	void Exit(int nExitCode);
 	bool IsRun();
 	bool IsRelease();
 
@@ -25,6 +25,7 @@ protected:
 	bool isTime();
 	void GenerateReport();
 	void SendMail(const TQDevItemList& itemList);
+	int SendMail();
 	void doExcel(const TQDevItemList& itemList, int lang = 0);
 
 private:
@@ -36,6 +37,8 @@ private:
 	int nState;
 	QString subject;
 	QStringList failList, successList;
+	int nSend;
+	QDateTime mDT;
 };
 
 IReport* CreateReport()
@@ -51,12 +54,12 @@ void ReleaseReport(IReport* pReport)
 	}
 }
 
-SQMSReport::SQMSReport():isRun(false), isRelease(false), nState(0)
+SQMSReport::SQMSReport():isRun(false), isRelease(false), nState(0), nSend(0)
 {
 	pLog = CreateLog();
 	pDb = CreateDatabase();
 	pCfg = CreateConfig();
-	pLog->Write(LOG_REPORT, "Create SQMSReport.");
+	pLog->Write(LOG_REPORT, "Create SQMSReport, and state = 0");
 }
 
 SQMSReport::~SQMSReport()
@@ -68,17 +71,21 @@ SQMSReport::~SQMSReport()
 	ReleaseLog(pLog);
 }
 
-void SQMSReport::Exit()
+void SQMSReport::Exit(int nExitCode)
 {
 	isRun = false; 
 	isRelease = true;
-	exit();
+	nSend = nExitCode;
+	exit(nExitCode);
 }
 
 bool SQMSReport::IsRun()
 {
 	if (!isTime() && nState == 3)
+	{
 		nState = 1;
+		pLog->Write(LOG_REPORT, tr("IsRun(), State = 1"));
+	}
 	if(!isRun && nState == 1)
 		return false;
 	else
@@ -102,7 +109,7 @@ void SQMSReport::Start()
 		isRun = true;
 		nState = 1;
 		start();
-		pLog->Write(LOG_REPORT, "Start SQMSReport thread.");
+		pLog->Write(LOG_REPORT, "Start SQMSReport thread, and state = 1");
 	}
 }
 
@@ -115,24 +122,54 @@ void SQMSReport::Stop()
 
 void SQMSReport::run()
 {
+	int count;
 	while(isRun)
 	{
 		switch (nState)
 		{
 		case 1:
 			if(isTime())
+			{
+#if 1
+				mDT = QDateTime::currentDateTime();
+				GenerateReport();
+				count = 0;
+#endif
 				nState = 2;
+				pLog->Write(LOG_REPORT, tr("run(), State = 2"));
+			}
 			//Only for test
 			//GenerateReport();
 			//-------------
 			break;
 		case 2:
+#if 1
+			if(SendMail() == 1)
+			{
+				pLog->Write(LOG_REPORT, tr("run(), State = 3"));
+				nState = 3;
+			}
+			else
+			{
+				count++;
+				if (count > 200)
+				{
+					nState = 1;
+				}
+				sleep(60*5);
+			}
+#else
 			GenerateReport();
+			pLog->Write(LOG_REPORT, tr("run(), State = 3"));
 			nState = 3;
+#endif
 			break;
 		case 3:
 			if(!isTime())
+			{
 				nState = 1;
+				pLog->Write(LOG_REPORT, tr("run(), State = 1"));
+			}
 			break;
 		default:
 			break;
@@ -143,7 +180,7 @@ void SQMSReport::run()
 
 bool SQMSReport::isTime()
 {
-	int tSend, t;
+	volatile int tSend, t;
 	QTime mTime = QTime::currentTime();
 	tSend = mSS.mStartTime.hour()*3600 + mSS.mStartTime.minute()*60 + mSS.mStartTime.second();
 	t = mTime.hour()*3600 + mTime.minute()*60 + mTime.second();
@@ -161,7 +198,7 @@ void SQMSReport::GenerateReport()
 	{
 		doExcel(itemList, 0);
 		doExcel(itemList, 1);
-		SendMail(itemList);
+// 		SendMail(itemList);
 	}
 	else
 	{
@@ -181,7 +218,6 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 	//	"<p>关于测试数据的说明:<br>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。<br>"
 	//	"2. 根据DCI的要求，放映机安装时需要校准色彩空间，保证所有影厅放映机输出的色彩空间一致，如果色彩空间设置正确，所有影厅检测到的色域坐标就是DCI所要求的标准值。呈现的结果就是所有影厅的色域坐标一致。</p>");
 	QString body;
-//	if (failList.size()>0)
 	{
 		body = QString::fromLocal8Bit("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
 			"<HTML><HEAD><META http-equiv=Content-Type content=\"text/html; charset=gb2312\">"
@@ -237,8 +273,32 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 			"<DIV>&nbsp;</DIV>"
 			"</DIV></BODY></HTML>");
 	}
-#if 0
-	else
+	ISendmail* pMail = NULL;
+
+	pMail = CreateSendmail();
+	pMail->SetSmtpSetting(pDb->GetSmtpSetting(), (IReport*)this);
+	pMail->Send(s, body, files);
+	exec();
+	ReleaseSendmail(pMail);
+}
+
+int SQMSReport::SendMail()
+{
+	TQDevItemList itemList;
+	pDb->GetQDevList(itemList);
+	int exitcode = 0;
+	if(itemList.size() > 0 && (nSend == 0))
+	{
+		QString file = pCfg->GetDatabaseSetting().strRepPath + "/" + "LEONIS-S-QMS-ExaminationReport-"+ itemList.at(0).strTheaterName +"-" + mDT.toString("yyyy-MM-dd") + ".xlsx";
+		QStringList files;
+		files.append(file);
+		file = pCfg->GetDatabaseSetting().strRepPath + "/" + QString::fromLocal8Bit("LEONIS数字电影放映质量管理系统测试报告-")+ itemList.at(0).strTheaterName +QString::fromLocal8Bit("店-") + mDT.toString("yyyy-MM-dd") + ".xlsx";
+		files.append(file);
+		QString s = "LEONIS-S-QMS-ExaminationReport-" + itemList.at(0).strTheaterName + "-" + mDT.toString("yyyy-MM-dd");
+		//QString body = QString::fromLocal8Bit("<p>这封邮件由LEONIS S-QMS100自动发送，请勿回复。<br>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</p>"
+		//	"<p>关于测试数据的说明:<br>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。<br>"
+		//	"2. 根据DCI的要求，放映机安装时需要校准色彩空间，保证所有影厅放映机输出的色彩空间一致，如果色彩空间设置正确，所有影厅检测到的色域坐标就是DCI所要求的标准值。呈现的结果就是所有影厅的色域坐标一致。</p>");
+		QString body;
 	{
 		body = QString::fromLocal8Bit("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">"
 		"<HTML><HEAD><META http-equiv=Content-Type content=\"text/html; charset=gb2312\">"
@@ -255,6 +315,36 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 		"<DIV>This email was sent by LEONIS S-QMS100 automatically, do not reply please.</DIV>"
 		"<DIV>&nbsp;</DIV>"
 		"<DIV>&nbsp;</DIV>"
+				"<DIV>截止到");
+			body += mDT.toString("yyyy") + QString::fromLocal8Bit("年") + 
+				mDT.toString("MM") + QString::fromLocal8Bit("月") + 
+				mDT.toString("dd") + QString::fromLocal8Bit("号") +
+				mDT.toString("HH:mm:ss") + QString::fromLocal8Bit("(设置的邮件发送时间)：</DIV><DIV>&nbsp;</DIV>");
+			if(successList.size()>0)
+			{
+				body += QString::fromLocal8Bit("<DIV>采集到检测数据的影厅序号为：");
+				int i;
+				for(i = 0; i<successList.size()-1; i++)
+				{
+					body = body + successList.at(i) + QString::fromLocal8Bit("，");
+				}
+				body = body + successList.at(i) + QString::fromLocal8Bit("。</DIV>");
+			}
+			if (failList.size()>0)
+			{
+				body += QString::fromLocal8Bit("<DIV>未采集到检测数据的影厅序号为：<font color=\"#ff0000\">");
+				int i;
+				for (i = 0; i <failList.size() - 1; i++)
+				{
+					body = body + failList.at(i) + QString::fromLocal8Bit("，");
+				}
+				body = body + failList.at(i) + QString::fromLocal8Bit("。</font></DIV>");
+				body += QString::fromLocal8Bit("<DIV>&nbsp;</DIV>");
+				body += QString::fromLocal8Bit("<DIV style=\"COLOR: #ff0000\">"
+					"建议检查未采集到检测数据的影厅是否按照操作要求正确放映检测片，同时检查以上各厅安装的LLAS-100检测仪电源是否工作正常、网络连接是否正常。");
+			}
+
+			body += QString::fromLocal8Bit("</DIV><DIV>&nbsp;</DIV><DIV>&nbsp;</DIV>"
 		"<DIV>关于测试数据的说明: <DIV>&nbsp;</DIV>"
 		"<DIV>1. 亮度测试目前是以2D放映为标准测试，如果检测期间放映机通道设置不正确或3D系统的偏振片没有从镜头前移开，会对检测结果造成影响，使检测结果偏低。</DIV>"
 		"<DIV style=\"COLOR: #ff0000\">建议测试时确保通道正确且3D设备移开。</DIV>"
@@ -264,14 +354,17 @@ void SQMSReport::SendMail(const TQDevItemList& itemList)
 		"<DIV>&nbsp;</DIV>"
 		"</DIV></BODY></HTML>");
 	}
-#endif
 	ISendmail* pMail = NULL;
 
 	pMail = CreateSendmail();
 	pMail->SetSmtpSetting(pDb->GetSmtpSetting(), (IReport*)this);
-	pMail->Send(s, body, files);
-	exec();
+		if(pMail->Send(s, body, files) == 1)
+		{
+			exitcode = exec();
+		}
 	ReleaseSendmail(pMail);
+}
+	return exitcode;
 }
 
 void SQMSReport::doExcel(const TQDevItemList& itemList, int lang)
