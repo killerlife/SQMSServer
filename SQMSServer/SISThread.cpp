@@ -273,7 +273,7 @@ bool SISThread::SISCheck()
 				oneflag = 1;
 			}
 			else {
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
   				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 1");
 #endif // SIS_DEBUG
 				q1.clear();
@@ -311,7 +311,7 @@ bool SISThread::SISCheck()
 				q1.clear();
 				queue.clear();
 				oneflag = 0;
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
  				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 2");
 #endif // SIS_DEBUG
 			}
@@ -348,7 +348,7 @@ bool SISThread::SISCheck()
 			}
 			else
 			{
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
  				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 3");
 #endif // SIS_DEBUG
 				q1.clear();
