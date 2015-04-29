@@ -32,11 +32,15 @@ private:
 	volatile char nFlag; 
 };
 
-SQMSDatabase sqmsDatabase;
+SQMSDatabase* pSqmsDatabase = NULL;
 
 IDatabase* CreateDatabase()
 {
-	return &sqmsDatabase;
+	if(pSqmsDatabase == NULL)
+	{
+		pSqmsDatabase = new SQMSDatabase;
+	}
+	return pSqmsDatabase;
 }
 
 void ReleaseDatabase(IDatabase *pDatabase)
