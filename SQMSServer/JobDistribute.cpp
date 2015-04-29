@@ -36,7 +36,8 @@ private:
 	TQDevItemList mQDevList;
 	LISTSIS mSISList;
 	bool taskCreate;
-	IReport * pRep;
+	QList<IReport*> mRepList;
+//	IReport * pRep;
 };
 
 IJobDistribute* CreateJobDistribute()
@@ -52,7 +53,7 @@ void ReleaseJobDistribute(IJobDistribute* pJob)
 	}
 }
 
-SQMSJobDistribute::SQMSJobDistribute() : isRun(false), taskCreate(false), pRep(NULL)
+SQMSJobDistribute::SQMSJobDistribute() : isRun(false), taskCreate(false)
 {
 	pLog = CreateLog();
 	pDb = CreateDatabase();
@@ -62,7 +63,11 @@ SQMSJobDistribute::SQMSJobDistribute() : isRun(false), taskCreate(false), pRep(N
 
 SQMSJobDistribute::~SQMSJobDistribute()
 {
-	ReleaseReport(pRep);
+	for (int i = 0; i < mRepList.size(); i++)
+	{
+		ReleaseReport(mRepList.at(i));
+	}
+	mRepList.clear();
 	ReleaseDatabase(pDb);
 	ReleaseLog(pLog);
 	ReleaseModSelect(pMod);
@@ -115,12 +120,16 @@ void SQMSJobDistribute::ReloadConfig()
 
 void SQMSJobDistribute::CreateTask()
 {
-	if (pRep == NULL)
-	{
-		pRep = CreateReport();
-		pRep->SetSmtpSetting(mSS);
-		pRep->Start();
+	for (int i = 0; i < mRepList.size(); i++)
+		{
+		IReport* pRep = (IReport*)mRepList.front();
+		mRepList.pop_front();
+		if (!pRep->IsRun())
+			ReleaseReport(pRep);
+		else
+			mRepList.push_back(pRep);
 	}
+	
 	if(taskCreate == false)
 	{
 		for (int i = 0; i < mQDevList.size(); i++)
@@ -150,6 +159,7 @@ void SQMSJobDistribute::Mainloop()
 	QTime currTime = QTime::currentTime();
 	LISTSIS::iterator itor;
 
+#if 0
 	if (!pRep->IsRun())
 	{
 		//ReleaseReport(pRep);
@@ -157,6 +167,7 @@ void SQMSJobDistribute::Mainloop()
 		pRep->SetSmtpSetting(mSS);
 		pRep->Start();
 	}
+#endif // 0
 
 	for(int i = 0; i <mSISList.size(); i++)
 	{
@@ -172,13 +183,17 @@ void SQMSJobDistribute::Mainloop()
 		if (mSISList.at(i)->isTime(currTime, T_AFTER_10MIN))
 		{
 			itor = mSISList.begin() + i;
-			delete mSISList.at(i);
+			ReleaseSISThread(mSISList.at(i));
 			mSISList.erase(itor);
 			break;
 		}
 	}
 	if (mSISList.size() == 0)
 	{
+		IReport* pRep = CreateReport();
+		pRep->SetSmtpSetting(mSS);
+		pRep->Start();
+		mRepList.push_back(pRep);
 		taskCreate = false;
 		jobState = STATE_CREATETASK;
 	}

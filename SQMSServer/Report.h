@@ -12,8 +12,9 @@ public:
 	virtual void SetSmtpSetting(SMTPSETTING ds) = 0;
 	virtual void Start() = 0;
 	virtual void Stop() = 0;
-	virtual void Exit() = 0;
+	virtual void Exit(int nExitCode) = 0;
 	virtual bool IsRun() = 0;
+	virtual bool IsRelease() = 0;
 };
 
 IReport * CreateReport();

@@ -17,7 +17,7 @@ void ReleaseSendmail(ISendmail* pMail)
 // 	}
 }
 
-Sendmail::Sendmail(int timeout):socket(NULL), t(NULL)
+Sendmail::Sendmail(int timeout):socket(NULL), t(NULL), nSend(0)
 {
 	socket = new QSslSocket(this);
 
@@ -36,7 +36,7 @@ Sendmail::~Sendmail()
 	ReleaseLog(pLog);
 	if (t)
 		delete t;
-	pRep->Exit();
+	pRep->Exit(nSend);
 }
 
 void Sendmail::SetSmtpSetting(SMTPSETTING ss, IReport* pRep)
@@ -45,7 +45,7 @@ void Sendmail::SetSmtpSetting(SMTPSETTING ss, IReport* pRep)
 	this->pRep = pRep;
 }
 
-void Sendmail::Send(const QString &subject, const QString &body, QStringList files)
+int Sendmail::Send(const QString &subject, const QString &body, QStringList files)
 {
 	mSS.strRecvList.remove("\r");
 	mSS.strRecvList.remove("\n");
@@ -80,13 +80,18 @@ void Sendmail::Send(const QString &subject, const QString &body, QStringList fil
 				if (!file.open(QIODevice::ReadOnly))
 				{
 					pLog->Write(LOG_SENDMAIL, tr("Couldn't open the attachment file"));
-					return ;
+					return 0;
 				}
+				pLog->Write(LOG_SENDMAIL, tr("Attach file: ") + filePath);
 				QByteArray bytes = file.readAll();
 				message.append(QString::fromLocal8Bit( "--frontier\n" ));
 				message.append(QString::fromLocal8Bit( "Content-Type: application/octet-stream\nContent-Disposition: attachment; filename=")+ QFileInfo(file.fileName()).fileName() + QString::fromLocal8Bit(";\nContent-Transfer-Encoding: base64\n\n" ));
 				message.append(bytes.toBase64());
 				message.append(QString::fromLocal8Bit("\n"));
+			}
+			else
+			{
+				pLog->Write(LOG_SENDMAIL, tr("No File exists: ") + filePath);
 			}
 		}
 	}
@@ -102,11 +107,16 @@ void Sendmail::Send(const QString &subject, const QString &body, QStringList fil
 	recvCout = 0;
 	socket->connectToHostEncrypted(mSS.strServer, mSS.nPort); //"smtp.gmail.com" and 465 for gmail TLS
 //    socket->connectToHost(host, port);
-	if (!socket->waitForConnected(timeout)) {
+	if (!socket->waitForConnected(timeout)) 
+	{
 		pLog->Write(LOG_SENDMAIL, socket->errorString());
+		return 0;
 	}
-
+	else
+	{
 	t = new QTextStream( socket );
+		return 1;
+	}
 }
 
 void Sendmail::stateChanged(QAbstractSocket::SocketState socketState)
@@ -278,6 +288,7 @@ void Sendmail::readyRead()
     }
     else if ( state == Close )
     {
+		nSend = 1;
         deleteLater();
         return;
     }

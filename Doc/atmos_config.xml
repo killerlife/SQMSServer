@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<atmosConfigSuiteData xmlns="http://www.dolby.com/cp/atmos/config" version="1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.dolby.com/cp/atmos/config AtmosConfigSuiteData.xsd">
+
+  <processorConfiguration>
+    <roomConfiguration>
+      <name>default</name>
+      <room>
+        <dimensions>
+          <screenWallWidth>14.5</screenWallWidth>
+          <boothWallWidth>14.5</boothWallWidth>
+          <houseLeftWallWidth>16.4</houseLeftWallWidth>
+          <houseRightWallWidth>16.4</houseRightWallWidth>
+          <screenHouseLeftInteriorAngle>right</screenHouseLeftInteriorAngle>
+          <screenHouseRightInteriorAngle>right</screenHouseRightInteriorAngle>
+          <boothHouseLeftInteriorAngle>right</boothHouseLeftInteriorAngle>
+          <boothHouseRightInteriorAngle>right</boothHouseRightInteriorAngle>
+          <floorElevationAtScreen>0</floorElevationAtScreen>
+          <ceilingElevationAtScreen>3.6</ceilingElevationAtScreen>
+        </dimensions>
+        <region>
+          <name>main</name>
+          <dimensions>
+            <screenWallWidth>14.5</screenWallWidth>
+            <boothWallWidth>14.5</boothWallWidth>
+            <houseLeftWallWidth>16.4</houseLeftWallWidth>
+            <houseRightWallWidth>16.4</houseRightWallWidth>
+            <screenHouseLeftInteriorAngle>right</screenHouseLeftInteriorAngle>
+            <screenHouseRightInteriorAngle>right</screenHouseRightInteriorAngle>
+            <boothHouseLeftInteriorAngle>right</boothHouseLeftInteriorAngle>
+            <boothHouseRightInteriorAngle>right</boothHouseRightInteriorAngle>
+            <floorElevationAtScreen>0</floorElevationAtScreen>
+            <ceilingElevationAtScreen>3.6</ceilingElevationAtScreen>
+          </dimensions>
+          <speakerEndpoint id="SPKREP-0" xsi:type="screenSpeaker">
+            <name>L 1</name>
+            <position>
+              <x>0</x>
+              <y>0</y>
+              <z>0</z>
+            </position>
+            <array>L</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-1" xsi:type="screenSpeaker">
+            <name>R 1</name>
+            <position>
+              <x>14.5</x>
+              <y>0</y>
+              <z>0</z>
+            </position>
+            <array>R</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-2" xsi:type="screenSpeaker">
+            <name>C 1</name>
+            <position>
+              <x>7.25</x>
+              <y>0</y>
+              <z>0</z>
+            </position>
+            <array>C</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-3" xsi:type="subwooferSpeaker">
+            <name>LFE 1</name>
+            <position>
+              <x>7.25</x>
+              <y>0</y>
+              <z>0</z>
+            </position>
+            <array>LFE</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-4" xsi:type="surroundSpeaker">
+            <name>Lss 1</name>
+            <position>
+              <x>0</x>
+              <y>8.2</y>
+              <z>0</z>
+            </position>
+            <array>Lss</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-5" xsi:type="surroundSpeaker">
+            <name>Rss 1</name>
+            <position>
+              <x>14.5</x>
+              <y>8.2</y>
+              <z>0</z>
+            </position>
+            <array>Rss</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-6" xsi:type="surroundSpeaker">
+            <name>Lrs 1</name>
+            <position>
+              <x>3.625</x>
+              <y>8.2</y>
+              <z>3.6</z>
+            </position>
+            <array>Lrs</array>
+            <array>Lts</array>
+          </speakerEndpoint>
+          <speakerEndpoint id="SPKREP-7" xsi:type="surroundSpeaker">
+            <name>Rrs 1</name>
+            <position>
+              <x>10.875</x>
+              <y>8.2</y>
+              <z>3.6</z>
+            </position>
+            <array>Rrs</array>
+            <array>Rts</array>
+          </speakerEndpoint>
+        </region>
+      </room>
+    </roomConfiguration>
+    <outputConfiguration isLimiterEnabled="false" xsi:type="cp850OutputConfiguration">
+      <outputRoute>
+        <outputRef>OUT-AL-0</outputRef>
+        <speakerEndpointRef>SPKREP-0</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-1</outputRef>
+        <speakerEndpointRef>SPKREP-1</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-2</outputRef>
+        <speakerEndpointRef>SPKREP-2</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-3</outputRef>
+        <speakerEndpointRef>SPKREP-3</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-4</outputRef>
+        <speakerEndpointRef>SPKREP-4</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-5</outputRef>
+        <speakerEndpointRef>SPKREP-5</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-6</outputRef>
+        <speakerEndpointRef>SPKREP-6</speakerEndpointRef>
+      </outputRoute>
+      <outputRoute>
+        <outputRef>OUT-AL-7</outputRef>
+        <speakerEndpointRef>SPKREP-7</speakerEndpointRef>
+      </outputRoute>
+      <blulinkOutput id="OUT-BL-0">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-1">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-2">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-3">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-4">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-5">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-6">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-7">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-8">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-9">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-10">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-11">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-12">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-13">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-14">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-15">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-16">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-17">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-18">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-19">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-20">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-21">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-22">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-23">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-24">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-25">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-26">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-27">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-28">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-29">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-30">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-31">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-32">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-33">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-34">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-35">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-36">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-37">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-38">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-39">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-40">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-41">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-42">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-43">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-44">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-45">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-46">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-47">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-48">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-49">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-50">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-51">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-52">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-53">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-54">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-55">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-56">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-57">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-58">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-59">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-60">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-61">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-62">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <blulinkOutput id="OUT-BL-63">
+        <peakOutputDbuPk>0</peakOutputDbuPk>
+      </blulinkOutput>
+      <analogOutput id="OUT-AL-0">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-1">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-2">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-3">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-4">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-5">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-6">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-7">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-8">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-9">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-10">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-11">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-12">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-13">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-14">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+      <analogOutput id="OUT-AL-15">
+        <analogOutputTrimDb>0</analogOutputTrimDb>
+        <screenFilterMode>digitalOffAnalogOff</screenFilterMode>
+      </analogOutput>
+    </outputConfiguration>
+  </processorConfiguration>
+
+</atmosConfigSuiteData>

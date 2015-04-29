@@ -148,7 +148,7 @@ void SISThread::run()
 
 bool SISThread::isTime(QTime mTime, T_KIND nKind)
 {
-	int tBefore, tAfter, t;
+	volatile int tBefore, tAfter, t;
 	tBefore = mQDev.tBefore.hour()*3600 + mQDev.tBefore.minute()*60 + mQDev.tBefore.second();
 	tAfter = mQDev.tAfter.hour()*3600 + mQDev.tAfter.minute()*60 + mQDev.tAfter.second();
 	t = mTime.hour()*3600 + mTime.minute()*60 + mTime.second();
@@ -187,7 +187,7 @@ bool SISThread::isTime(QTime mTime, T_KIND nKind)
 
 bool isTime(QTime tBefore, QTime tAfter, T_KIND nKind)
 {
-	int nBefore, nAfter, t;
+	volatile int nBefore, nAfter, t;
 	QTime mTime = QTime::currentTime();
 	nBefore = tBefore.hour()*3600 + tBefore.minute()*60 + tBefore.second();
 	nAfter = tAfter.hour()*3600 + tAfter.minute()*60 + tAfter.second();
@@ -211,12 +211,12 @@ bool isTime(QTime tBefore, QTime tAfter, T_KIND nKind)
 		else
 			return false;
 	case T_AFTER_10MIN:
-		if(t > nAfter && t < (nAfter + 600))
+		if(t > (nAfter - 600) && t < (nAfter + 600))
 			return true;
 		else
 			return false;
 	case T_BEFORE_10MIN:
-		if(t > (nBefore - 600))
+		if(t > (nBefore - 600) && t < (nAfter + 600))
 			return true;
 		else
 			return false;
@@ -273,7 +273,7 @@ bool SISThread::SISCheck()
 				oneflag = 1;
 			}
 			else {
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
   				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 1");
 #endif // SIS_DEBUG
 				q1.clear();
@@ -311,7 +311,7 @@ bool SISThread::SISCheck()
 				q1.clear();
 				queue.clear();
 				oneflag = 0;
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
  				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 2");
 #endif // SIS_DEBUG
 			}
@@ -348,7 +348,7 @@ bool SISThread::SISCheck()
 			}
 			else
 			{
-#ifdef SIS_DEBUG
+#ifdef SIS_DEBUG_CLEAR
  				pLog->Write(LOG_SISTHREAD, mQDev.strIp + ": unknow clear 3");
 #endif // SIS_DEBUG
 				q1.clear();

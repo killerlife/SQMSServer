@@ -136,6 +136,7 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="LogFileOperation.h" />
     <ClInclude Include="LogStruct.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="soapH.h" />
     <ClInclude Include="soapStub.h" />
     <ClInclude Include="soapSystemManagementBinding_USCOREv1_USCORE0Proxy.h" />
@@ -179,6 +180,12 @@
     </CustomBuild>
     <ClInclude Include="Script.h" />
     <ClInclude Include="ScriptStruct.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SQMSServer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon2.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

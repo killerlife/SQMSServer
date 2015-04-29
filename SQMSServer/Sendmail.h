@@ -13,7 +13,7 @@
 class ISendmail
 {
 public:
-	virtual void Send(const QString &subject, const QString &body,
+	virtual int Send(const QString &subject, const QString &body,
 		QStringList files = QStringList()) = 0;
 	virtual void SetSmtpSetting(SMTPSETTING ss, IReport *pRep) = 0;
 };
@@ -22,7 +22,7 @@ class Sendmail : public QObject, public ISendmail
 {
 	Q_OBJECT
 public:
-	void Send(const QString &subject, const QString &body,
+	int Send(const QString &subject, const QString &body,
 		QStringList files = QStringList());
 	void SetSmtpSetting(SMTPSETTING ss, IReport *pRep);
 	Sendmail(int timeout = 30000);
@@ -52,6 +52,7 @@ private:
 	int state;
 	int recvCout;
 	IReport* pRep;
+	int nSend;
 };
 
 ISendmail * CreateSendmail();

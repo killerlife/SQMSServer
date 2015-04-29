@@ -161,5 +161,14 @@
     <ClInclude Include="soapSystemManagementBinding_USCOREv1_USCORE0Proxy.h">
       <Filter>Header Files\CP850</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SQMSServer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon2.ico" />
   </ItemGroup>
 </Project>
