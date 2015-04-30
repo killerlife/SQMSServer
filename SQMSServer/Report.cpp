@@ -155,6 +155,7 @@ void SQMSReport::run()
 				if (count > 200)
 				{
 					nState = 1;
+					isRun = false;
 				}
 				sleep(60*5);
 			}
