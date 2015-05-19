@@ -14,7 +14,7 @@ public:
 	void GetQDevList(TQDevItemList& itemList);
 	void SaveCollectData(TValueItemList *pList, QMSDEVICE& mDev);
 	QSqlQueryModel* ExecSql(QString sql);
-
+	QSqlQueryModel* ExecRemoteSql(QString sql); 
 	SQMSDatabase();
 	~SQMSDatabase();
 
@@ -27,6 +27,7 @@ private:
 	IConfig *pConfig;
 	ILog *pLog;
 	QSqlDatabase db;
+	QSqlDatabase rdb;
 	QSqlQueryModel *pModel;
 	SMTPSETTING mSS;
 	volatile char nFlag; 
@@ -45,6 +46,7 @@ IDatabase* CreateDatabase()
 
 void ReleaseDatabase(IDatabase *pDatabase)
 {
+	if(pDatabase)delete pDatabase;
 }
 
 SQMSDatabase::SQMSDatabase():nFlag(0)
@@ -57,6 +59,7 @@ SQMSDatabase::SQMSDatabase():nFlag(0)
 SQMSDatabase::~SQMSDatabase()
 {
 	db.close();
+	rdb.close();
 	ReleaseLog(pLog);
 	ReleaseConfig(pConfig);
 }
@@ -64,6 +67,7 @@ SQMSDatabase::~SQMSDatabase()
 void SQMSDatabase::InitDB()
 {
 	DATABASESETTING mDS = pConfig->GetDatabaseSetting();
+	DATABASESETTING mRDS = pConfig->GetRemoteDatabaseSetting(); 
 
 	db = QSqlDatabase::addDatabase("QMYSQL");
 	QSqlError sqlerr = db.lastError();
@@ -80,10 +84,31 @@ void SQMSDatabase::InitDB()
 	db.setDatabaseName(mDS.strName);
 	db.setUserName(mDS.strUsr);
 	db.setPassword(mDS.strPwd);
+
+	rdb = QSqlDatabase::addDatabase("QMYSQL", "RemoteDatabase");  // 如果同时连接两个数据库， 必须指定其中一个数据库连接名字， 不然默认的连接命字将导致数据库连接名字冲突。
+
+	sqlerr = rdb.lastError();
+	if (sqlerr.type() != QSqlError::NoError)
+	{
+		QString err;
+		err.sprintf("DATABASE INIT ERROR: %s", sqlerr.text().toStdString().c_str());
+		if(pLog)
+			pLog->Write(LOG_DATABASE, err);
+		return;
+	}
+
+	rdb.setHostName(mRDS.strHost); 
+	rdb.setPort(mRDS.nPort);
+	rdb.setDatabaseName(mRDS.strName);
+	rdb.setUserName(mRDS.strUsr);
+	rdb.setPassword(mRDS.strPwd);
+
 }
 
 void SQMSDatabase::OpenDB()
 {
+	if(db.isOpen() && rdb.isOpen())return; 
+	
 	if (!db.open())
 	{
 		QString err;
@@ -92,6 +117,15 @@ void SQMSDatabase::OpenDB()
 			pLog->Write(LOG_DATABASE, err);
 		return ;
 	}
+	
+	if(!rdb.open())
+	{
+		QString err; 
+		err.sprintf("DATABASE CONNECTION ERROR: %s", rdb.lastError().text().toStdString().c_str()); 
+		if(pLog)
+			pLog->Write(LOG_DATABASE, err); 
+	}
+
 }
 
 void SQMSDatabase::CloseDB()
@@ -99,6 +133,11 @@ void SQMSDatabase::CloseDB()
 	if (db.isOpen())
 	{
 		db.close();
+	}
+
+	if(rdb.isOpen())
+	{
+		rdb.close();
 	}
 }
 
@@ -262,6 +301,34 @@ void SQMSDatabase::SaveCollectData(TValueItemList *pList, QMSDEVICE& mDev)
 	nFlag = 0;
 }
 
+QSqlQueryModel* SQMSDatabase::ExecRemoteSql(QString sql)
+{
+	while(nFlag)
+		QThread::msleep(int((double)rand()/(double)UINT_MAX*50));
+	nFlag = 1;
+	OpenDB();
+	if (rdb.isOpen())
+	{
+		pModel = new QSqlQueryModel;
+		pModel->setQuery(sql, rdb);
+		if (pModel->lastError().isValid())
+		{
+			pLog->Write(LOG_DATABASE, QObject::tr("Execute ExecRemoteSql SQL failure."));
+			pLog->Write(LOG_DATABASE, sql);
+			pLog->Write(LOG_DATABASE, pModel->lastError().text());
+			delete pModel;
+			pModel = NULL;
+			CloseDB();
+			nFlag = 0;
+			return NULL;
+		}
+		CloseDB();
+		nFlag = 0;
+		return pModel;
+	}
+	nFlag = 0;
+	return NULL;
+}
 QSqlQueryModel* SQMSDatabase::ExecSql(QString sql)
 {
 	while(nFlag)
