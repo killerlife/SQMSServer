@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
+Source Server         : qq
 Source Server Version : 50087
 Source Host           : localhost:3306
 Source Database       : dev_monitor
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50087
 File Encoding         : 65001
 
-Date: 2015-03-24 13:26:52
+Date: 2015-05-05 09:57:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,16 +36,17 @@ CREATE TABLE `tb_dev_corrected_value_conf` (
   `script` varchar(400) default NULL,
   `sync_mode` int(3) default NULL,
   `port` int(7) default NULL,
+  `atmost` varchar(6) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_dev_corrected_value_conf
 -- ----------------------------
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('4', '金逸中关村', '1号厅', '192.168.100.101', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', '10001');
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('5', '金逸中关村', '2号厅', '192.168.100.102', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', '10001');
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('6', '金逸中关村', '3号厅', '192.168.100.103', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', null);
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('7', '金逸中关村', '4号厅', '192.168.100.104', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', null);
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('8', '金逸中关村', '5号厅', '192.168.100.105', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', null);
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('9', '金逸中关村', '6号厅', '192.168.100.106', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', null);
-INSERT INTO `tb_dev_corrected_value_conf` VALUES ('10', '金逸中关村', '7号厅', '192.168.100.107', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '0.00000', '09:00:00', '11:30:00', null, '0', null);
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('4', '金逸中关村', '1号厅', '192.168.56.151', '0.00000', '10.00000', '10.00000', '9.00000', '4.00000', '10.00000', '10.00000', '09:00:00', '10:30:00', null, '0', '10001', 'no');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('5', '金逸中关村', '2号厅', '192.168.56.152', '0.00000', '10.00000', '8.00000', '12.00000', '2.00000', '6.00000', '1.00000', '09:00:00', '10:30:00', null, '0', '10001', 'no');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('6', '金逸中关村', '3号厅', '192.168.56.153', '0.00000', '10.00000', '10.00000', '12.00000', '15.00000', '10.00000', '10.00000', '09:00:00', '10:30:00', null, '0', '10001', 'no');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('7', '金逸中关村', '4号厅', '192.168.56.154', '0.00000', '15.00000', '15.00000', '12.00000', '15.00000', '12.00000', '12.00000', '09:00:00', '10:30:00', null, '0', '10001', 'no');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('8', '金逸中关村', '5号厅', '192.168.56.155', '0.00000', '10.00000', '8.00000', '10.00000', '0.00000', '0.00000', '-3.00000', '09:00:00', '10:30:00', null, '0', '10001', 'yes');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('9', '金逸中关村', '6号厅', '192.168.56.156', '0.00000', '16.00000', '16.00000', '18.00000', '16.00000', '12.00000', '12.00000', '09:00:00', '10:30:00', null, '0', '10001', 'no');
+INSERT INTO `tb_dev_corrected_value_conf` VALUES ('10', '金逸中关村', '7号厅', '192.168.56.157', '0.00000', '10.00000', '10.00000', '12.00000', '15.00000', '14.00000', '10.00000', '09:00:00', '10:30:00', '', '0', '10001', 'no');
