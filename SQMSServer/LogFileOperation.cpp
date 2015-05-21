@@ -101,6 +101,12 @@ bool CLogFileOperation::Write(const char* file,const int type, const char* conte
 	case LOG_SENDMAIL:
 		sType = "SendMail";
 		break;
+	case LOG_INFO:
+		sType = "INFO";
+		break;
+	case LOG_DEBUG:
+		sType = "DEBUG";
+		break;
 	default:
 		sType = "Unknow";
 		break;

@@ -1,45 +1,55 @@
-﻿Build started 2015/3/26 17:41:47.
-     1>Project "D:\workspace\projects\SQMSServer\SQMSServer\SQMSServer.vcxproj" on node 2 (rebuild target(s)).
+﻿Build started 2015/5/19 11:20:00.
+     1>Project "D:\workspace\projects\SQMSServer\SQMSServer\SQMSServer.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\SQMSServer.unsuccessfulbuild" because "AlwaysCreate" was specified.
        CustomBuild:
+         Moc'ing RemoteAccessThread.h...
          Moc'ing Sendmail.h...
          Moc'ing ModSelect.h...
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I. /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include /I.\GeneratedFiles\Release /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtCore /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtNetwork /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtSql /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXlsx /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtGui /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXml /Zi /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_NETWORK_LIB /D QT_SQL_LIB /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Config.cpp Database.cpp Device.cpp Excel.cpp GeneratedFiles\Debug\moc_ModSelect.cpp GeneratedFiles\Release\moc_ModSelect.cpp GeneratedFiles\Release\moc_Sendmail.cpp JobDistribute.cpp Log.cpp LogFileOperation.cpp main.cpp ModSelect.cpp Report.cpp Script.cpp Sendmail.cpp SISThread.cpp soapC.cpp soapSystemManagementBinding_USCOREv1_USCORE0Proxy.cpp stdsoap2.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I. /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include /I.\GeneratedFiles\Release /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtCore /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtNetwork /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtSql /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXlsx /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtGui /ID:\Qt\Qt5.3.0\5.3\msvc2010_opengl\include\QtXml /Zi /nologo /W1 /WX- /O2 /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_NO_DEBUG /D NDEBUG /D QT_CORE_LIB /D QT_NETWORK_LIB /D QT_SQL_LIB /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Config.cpp Database.cpp Device.cpp Excel.cpp GeneratedFiles\Debug\moc_ModSelect.cpp GeneratedFiles\Release\moc_ModSelect.cpp GeneratedFiles\Release\moc_RemoteAccessThread.cpp GeneratedFiles\Release\moc_Sendmail.cpp JobDistribute.cpp Log.cpp LogFileOperation.cpp main.cpp ModSelect.cpp RemoteAccessThread.cpp Report.cpp Script.cpp Sendmail.cpp SISThread.cpp soapC.cpp soapSystemManagementBinding_USCOREv1_USCORE0Proxy.cpp stdsoap2.cpp
          Config.cpp
          Database.cpp
          Device.cpp
          Excel.cpp
          moc_ModSelect.cpp
          moc_ModSelect.cpp
+         moc_RemoteAccessThread.cpp
          moc_Sendmail.cpp
          JobDistribute.cpp
          Log.cpp
          LogFileOperation.cpp
          main.cpp
          ModSelect.cpp
+         RemoteAccessThread.cpp
          Report.cpp
          Script.cpp
          Sendmail.cpp
          SISThread.cpp
          soapC.cpp
          soapSystemManagementBinding_USCOREv1_USCORE0Proxy.cpp
+         Generating Code...
+         Compiling...
          stdsoap2.cpp
          Generating Code...
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /l"0x0409" /nologo /fo"Release\SQMSServer.res" SQMSServer.rc 
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\workspace\projects\SQMSServer\Win32\Release\\SQMSServer.exe" /NOLOGO /LIBPATH:D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\lib qtmain.lib Qt5Core.lib Qt5Network.lib Qt5Sql.lib Qt0Xlsx.lib Qt5Gui.lib Qt5Xml.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\SQMSServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\workspace\projects\SQMSServer\Win32\Release\SQMSServer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\workspace\projects\SQMSServer\Win32\Release\SQMSServer.lib" /MACHINE:X86 Release\Config.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\workspace\projects\SQMSServer\Win32\Release\\SQMSServer.exe" /NOLOGO /LIBPATH:D:\Qt\Qt5.3.0\5.3\msvc2010_opengl\lib qtmain.lib Qt5Core.lib Qt5Network.lib Qt5Sql.lib Qt0Xlsx.lib Qt5Gui.lib Qt5Xml.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\SQMSServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\workspace\projects\SQMSServer\Win32\Release\SQMSServer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\workspace\projects\SQMSServer\Win32\Release\SQMSServer.lib" /MACHINE:X86 Release\SQMSServer.res
+         Release\Config.obj
          Release\Database.obj
          Release\Device.obj
          Release\Excel.obj
          Release\moc_ModSelect.obj
          Release\moc_ModSelect.obj
+         Release\moc_RemoteAccessThread.obj
          Release\moc_Sendmail.obj
          Release\JobDistribute.obj
          Release\Log.obj
          Release\LogFileOperation.obj
          Release\main.obj
          Release\ModSelect.obj
+         Release\RemoteAccessThread.obj
          Release\Report.obj
          Release\Script.obj
          Release\Sendmail.obj
@@ -59,8 +69,8 @@
        FinalizeBuildStatus:
          Deleting file "Release\SQMSServer.unsuccessfulbuild".
          Touching "Release\SQMSServer.lastbuildstate".
-     1>Done Building Project "D:\workspace\projects\SQMSServer\SQMSServer\SQMSServer.vcxproj" (rebuild target(s)).
+     1>Done Building Project "D:\workspace\projects\SQMSServer\SQMSServer\SQMSServer.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:20.21
+Time Elapsed -02:09:40.8

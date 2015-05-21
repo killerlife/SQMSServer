@@ -11,8 +11,9 @@ public:
 	virtual void GetQDevList(TQDevItemList& itemList) = 0;
 	virtual void SaveCollectData(TValueItemList* pList, QMSDEVICE& mDev) = 0;
 	virtual QSqlQueryModel* ExecSql(QString sql) = 0;
+	virtual QSqlQueryModel* ExecRemoteSql(QString sql) = 0;
 };
 
 IDatabase* CreateDatabase();
-void ReleaseDatabase(IDatabase *pDatabase);
 
+void ReleaseDatabase(IDatabase *pDatabase);

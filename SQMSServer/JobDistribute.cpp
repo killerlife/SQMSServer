@@ -2,10 +2,11 @@
 #include "Database.h"
 #include "Log.h"
 #include "ConfigStruct.h"
+#include "Config.h"
 #include "ModSelect.h"
 #include "SISThread.h"
 #include "Report.h"
-
+#include "remoteaccessthread.h"
 #include <QThread>
 
 static JOBSTATE jobState = STATE_NONE;
@@ -28,7 +29,9 @@ protected:
 	void Mainloop();
 
 private:
+	IConfig *pCfg;
 	IDatabase* pDb;
+	IDatabase* pRDb;
 	ILog* pLog;
 	IModSelect* pMod;
 	bool isRun;
@@ -53,10 +56,11 @@ void ReleaseJobDistribute(IJobDistribute* pJob)
 	}
 }
 
-SQMSJobDistribute::SQMSJobDistribute() : isRun(false), taskCreate(false)
+SQMSJobDistribute::SQMSJobDistribute() : isRun(false), taskCreate(false), pLog(NULL), pDb(NULL), pRDb(NULL),pCfg(NULL)
 {
 	pLog = CreateLog();
 	pDb = CreateDatabase();
+	pCfg = CreateConfig();
 // 	pMod = CreateModSelect();
 	//pMod->Start();
 }
@@ -194,6 +198,12 @@ void SQMSJobDistribute::Mainloop()
 		pRep->SetSmtpSetting(mSS);
 		pRep->Start();
 		mRepList.push_back(pRep);
+
+		RemoteAccessThread *rdbThread = new RemoteAccessThread(NULL); 
+		
+		rdbThread->setDB(pDb); 
+		 
+		rdbThread->start(); 
 		taskCreate = false;
 		jobState = STATE_CREATETASK;
 	}

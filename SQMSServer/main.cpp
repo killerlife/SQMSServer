@@ -5,7 +5,7 @@
 #include "JobDistribute.h"
 #include "Log.h"
 
-#define WIN_SERVICE 1
+//#define WIN_SERVICE 1
 
 #ifdef WIN_SERVICE
 #include <windows.h>
