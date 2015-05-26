@@ -108,7 +108,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-	SetCurrentDirectory(QString("D:/work/sqmsserver/Release").toStdWString().c_str());
+	//SetCurrentDirectory(QString("D:/work/sqmsserver/Release").toStdWString().c_str());
 	Init();
 
 	dwThreadID = ::GetCurrentThreadId();
@@ -188,7 +188,7 @@ void WINAPI ServiceMain()
 	QString path = QString::fromWCharArray(dir);
 	path.remove("SQMSServer.exe");
 	SetCurrentDirectory((LPCWSTR)path.toStdWString().c_str());
-
+	CreateLog()->Write(LOG_CONFIG, path);
 	QCoreApplication a(count, NULL);
 	SQMSEventFilter eventFilter;
 	a.installNativeEventFilter(&eventFilter);
