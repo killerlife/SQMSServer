@@ -1,4 +1,4 @@
-﻿Build started 2015/5/19 11:20:00.
+﻿Build started 2015/5/26 10:46:03.
      1>Project "D:\workspace\projects\SQMSServer\SQMSServer\SQMSServer.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\SQMSServer.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -73,4 +73,4 @@
 
 Build succeeded.
 
-Time Elapsed -02:09:40.8
+Time Elapsed 00:00:23.33

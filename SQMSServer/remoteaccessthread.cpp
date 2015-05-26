@@ -7,7 +7,6 @@
 RemoteAccessThread::RemoteAccessThread(QObject *parent)
 	: QThread(parent), model(NULL), m_remoteModel(NULL)
 {
-	//pCfg = CreateConfig(); 
 	pLog = CreateLog();
 	pDb = CreateDatabase();
 	mLAST_ID = getLastId();
@@ -49,8 +48,8 @@ QString RemoteAccessThread:: makeSQLs(QString startId, QString endId)
 {
 	QString tmp, sql, sqls; 
 	sql = tmp.sprintf("SELECT\n"
-		"	t.id,\n"
 		"	t.national,\n"
+		"   t.cinema_line as 'cinema',\n"
 		"	t.cinema_name as 't_name',\n"
 		"	t.cinema_hall as 't_num',\n"
 		"	t.lc as 'S_l',\n"
@@ -83,29 +82,52 @@ QString RemoteAccessThread:: makeSQLs(QString startId, QString endId)
 	   model = pDb->ExecSql(sql); 
 	   if(!model)return "error";
 	   if(model->rowCount() < 0 ) return "";
-	  
-
-	  
-
+	 
 	   int rowCount = model->rowCount(); 
 	   int colCount = model->columnCount(); 
 	   sql = "";
-	  
 	   for(int i = 0; i < rowCount; i++ )
 	   {
-		    tmp = "insert into `TestResults` values("; 
-			tmp += "'" + mNATIONAL + "',";
+		   tmp = "INSERT INTO `TestResults` (\n"
+			   "	`National`,\n"
+			   "	`Cinema`,\n"
+			   "	`T_name`,\n"
+			   "	`T_num`,\n"
+			   "	`S_l`,\n"
+			   "	`S_r`,\n"
+			   "	`S_c`,\n"
+			   "	`S_lfe`,\n"
+			   "	`S_ls`,\n"
+			   "	`S_rs`,\n"
+			   "	`S_lss`,\n"
+			   "	`S_rss`,\n"
+			   "	`F_w`,\n"
+			   "	`F_r`,\n"
+			   "	`F_g`,\n"
+			   "	`F_b`,\n"
+			   "	`Cx_w`,\n"
+			   "	`Cy_w`,\n"
+			   "	`Cx_r`,\n"
+			   "	`Cy_r`,\n"
+			   "	`Cx_g`,\n"
+			   "	`Cy_g`,\n"
+			   "	`Cx_b`,\n"
+			   "	`Cy_b`,\n"
+			   "	`T_c`,\n"
+			   "	`stime`,\n"
+			   "	`etime`\n"
+			   ")\n"
+			   "VALUES\n"
+			   "	("; 
+
 		   for(int j = 0; j< colCount-1; j++)
 		   {
-			  
 				tmp += "'" + model->data(model->index(i, j)).toString() + "',";
 		   }
-		   tmp += "'"+ model->data(model->index(i, colCount-1)).toString() + "'";
+			tmp += "'" + model->data(model->index(i, colCount-1)).toString() + "'";
 		   tmp += "); "; 
 		   sql += tmp;
-		   pLog->Write(LOG_DEBUG, tmp);
 	   }
-	   pLog->Write(LOG_DEBUG, sql);
 	   if(model)
 	   {
 		   delete model;
@@ -116,18 +138,15 @@ QString RemoteAccessThread:: makeSQLs(QString startId, QString endId)
 
 QString RemoteAccessThread::getLastId()
 {
-// 	mLAST_ID = pCfg->GetLastId();
-// 	return pCfg->GetLastId();
+
 	QSettings settings("config.ini", QSettings::IniFormat); 
 	QString m = 0; 
 	m = settings.value("LAST_ID", "0").toString();
-	pLog->Write(LOG_DEBUG, "m====================="+m);
 	return m;
 }
 
 QString RemoteAccessThread::getCinema()
 {
-	//mCINEMA = pCfg->GetCinema();
 	QSettings settings("config.ini", QSettings::IniFormat); 
 	QString m = settings.value("CINEMA", "JinYi").toString();
 	return m;
@@ -135,8 +154,6 @@ QString RemoteAccessThread::getCinema()
 
 QString RemoteAccessThread::getNational()
 {
-// 	mNATIONAL = pCfg->GetNational(); 
-// 	return mNATIONAL;
 	QSettings settings("config.ini", QSettings::IniFormat); 
 	QString m = settings.value("NATIONAL", "China").toString();
 	return m;
@@ -146,14 +163,19 @@ void RemoteAccessThread::run()
 {
  	pLog->Write(LOG_INFO, "It is running!");
 	QString sqls = makeSQLs(startId, endId);
+	
 	m_remoteModel = pDb->ExecRemoteSql(sqls);
 	pLog->Write(LOG_DEBUG, sqls);
-if(m_remoteModel)
-{
-	delete m_remoteModel; 
-	m_remoteModel = NULL;
-}
-setLastId(QString::number(endId.toLongLong()+1));
+	if(m_remoteModel)
+	{
+		delete m_remoteModel; 
+		m_remoteModel = NULL;
+		setLastId(QString::number(endId.toLongLong()+1));
+	}
+	
+	
+
+
 }
 
 void RemoteAccessThread::setLastId(QString LastId)

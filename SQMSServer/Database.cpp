@@ -273,10 +273,12 @@ void SQMSDatabase::SaveCollectData(TValueItemList *pList, QMSDEVICE& mDev)
 				s2 = s2 + "'" + item.value + "', ";
 			}
 		}
-		s1 += QString("cinema_name, cinema_hall, dev_ip, stime, etime");
+		s1 += QString("cinema_name, cinema_hall, dev_ip, stime, etime, national, cinema_line");
 		s2 = s2 + "'" + mDev.strTheaterName + "', '" + mDev.strTheaterNo + "', '"\
 			+ mDev.strIp + "', '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") \
 			+ "', '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+		s2 += "','" + pConfig->GetNational() + "',"; 
+		s2 += "'" + pConfig->GetCinema() ;
 		QString sql = s1 + s2 + "');";
 		sql.remove("\r");
 		sql.remove("\n");
